@@ -1,4 +1,6 @@
 from nltk import tokenize
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 import re
 
 
@@ -44,6 +46,23 @@ def scoreSentences(sen1, sen2):
         avg = len(s1)+len(s2) / 2.0
         score = len(s1.intersection(s2)) / avg
     return score
+
+
+def remove_stopwords(sentences):
+    """
+    Removes stopwords from the sentence
+    :param sentences: (list) sentences
+    :returns: cleaned sentences without any stopwords
+    """
+    sw = set(stopwords.words('english'))
+    cleaned = []
+    for sentence in sentences:
+        words = word_tokenize(sentence)
+        sentence = ' '.join([c for c in words if c not in sw])
+        # sentence.translate(None, ''.join(sw))
+        print sentence
+        cleaned.append(sentence)
+    return cleaned
 
 
 def sentenceGraph(sentences):
@@ -93,6 +112,7 @@ def main():
     for paragraph in paragraphs:
         if paragraph:
             sentences = getSentences(paragraph)
+            sentences = remove_stopwords(sentences)
             graph = sentenceGraph(sentences)
             score = build(sentences, graph)
 
