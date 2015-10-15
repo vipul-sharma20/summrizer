@@ -1,5 +1,7 @@
 from nltk import tokenize
 import re
+
+
 def getParagraphs(content):
     """
     Exctracts paragraphs from the the text content
@@ -8,6 +10,7 @@ def getParagraphs(content):
     """
     paraList = content.split('\n\n')
     return paraList
+
 
 def getSentences(paragraph):
     """
@@ -18,9 +21,11 @@ def getSentences(paragraph):
     sentenceList = tokenize.sent_tokenize(paragraph)
     return sentenceList
 
+
 def format_sentence(sentence):
     sentence = re.sub(r'\W+', '', sentence)
     return sentence
+
 
 def scoreSentences(sen1, sen2):
     """
@@ -30,8 +35,8 @@ def scoreSentences(sen1, sen2):
     :returns: score
     """
     # TODO: Better scoring algorithm
-    #sen1 = format_sentence(sen1)
-    #sen2 = format_sentence(sen2)
+    # sen1 = format_sentence(sen1)
+    # sen2 = format_sentence(sen2)
     s1 = set(sen1.lower().split())
     s2 = set(sen2.lower().split())
     score = 0
@@ -39,6 +44,7 @@ def scoreSentences(sen1, sen2):
         avg = len(s1)+len(s2) / 2.0
         score = len(s1.intersection(s2)) / avg
     return score
+
 
 def sentenceGraph(sentences):
     """
@@ -61,6 +67,7 @@ def sentenceGraph(sentences):
 
     return scoreGraph
 
+
 def build(sentences, scoreGraph):
     """
     Builds the content summary based on the graph
@@ -79,6 +86,7 @@ def build(sentences, scoreGraph):
         sen += 1
     return aggregateScore
 
+
 def main():
     content = raw_input('Content: ')
     paragraphs = getParagraphs(content)
@@ -88,6 +96,6 @@ def main():
             graph = sentenceGraph(sentences)
             score = build(sentences, graph)
 
-    print score
+    print sorted(score, reverse=True)
 
 main()
