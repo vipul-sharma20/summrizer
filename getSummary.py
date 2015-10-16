@@ -59,8 +59,6 @@ def remove_stopwords(sentences):
     for sentence in sentences:
         words = word_tokenize(sentence)
         sentence = ' '.join([c for c in words if c not in sw])
-        # sentence.translate(None, ''.join(sw))
-        print sentence
         cleaned.append(sentence)
     return cleaned
 
