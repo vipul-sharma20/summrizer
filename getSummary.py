@@ -85,7 +85,7 @@ def sentenceGraph(sentences):
     return scoreGraph
 
 
-def build(sentences, scoreGraph):
+def build(sentences, scoreGraph, orig_sentences):
     """
     Builds the content summary based on the graph
     :param sentences: (list) list of sentences
@@ -99,7 +99,7 @@ def build(sentences, scoreGraph):
         for i in scores:
             aggregate += i
         sentence = sentences[sen]
-        aggregateScore[sentence] = aggregate
+        aggregateScore[orig_sentences[sen]] = aggregate
         sen += 1
     return aggregateScore
 
@@ -109,11 +109,9 @@ def main():
     paragraphs = getParagraphs(content)
     for paragraph in paragraphs:
         if paragraph:
-            sentences = getSentences(paragraph)
-            sentences = remove_stopwords(sentences)
+            orig_sentences = getSentences(paragraph)
+            sentences = remove_stopwords(orig_sentences)
             graph = sentenceGraph(sentences)
-            score = build(sentences, graph)
-
-    print sorted(score, reverse=True)
-
+            score = build(sentences, graph, orig_sentences)
+    print score
 main()
