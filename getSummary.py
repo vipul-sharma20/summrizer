@@ -120,6 +120,6 @@ def main():
             sentences = remove_stopwords(orig_sentences)
             graph = sentenceGraph(sentences)
             score = build(sentences, graph, orig_sentences)
-    for i in indexed:
-        print indexed[i], score[indexed[i]]
+        for i in indexed:
+            print indexed[i], score[indexed[i]]
 main()
