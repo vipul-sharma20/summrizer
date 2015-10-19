@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from nltk import tokenize
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -20,8 +22,13 @@ def getSentences(paragraph):
     :param paragraph: (str) paragraph text
     :returns: list of sentences
     """
+    indexed = {}
+    i = 0
     sentenceList = tokenize.sent_tokenize(paragraph)
-    return sentenceList
+    for s in sentenceList:
+        indexed[i] = s
+        i += 1
+    return sentenceList, indexed
 
 
 def format_sentence(sentence):
@@ -109,9 +116,10 @@ def main():
     paragraphs = getParagraphs(content)
     for paragraph in paragraphs:
         if paragraph:
-            orig_sentences = getSentences(paragraph)
+            orig_sentences, indexed = getSentences(paragraph)
             sentences = remove_stopwords(orig_sentences)
             graph = sentenceGraph(sentences)
             score = build(sentences, graph, orig_sentences)
-    print score
+    for i in indexed:
+        print indexed[i], score[indexed[i]]
 main()
