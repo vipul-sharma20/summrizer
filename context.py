@@ -2,9 +2,9 @@
 import nltk
 from nltk.corpus import brown
 
-brown_train = brown.tagged_sents(categories='news')
-regexp_tagger = nltk.RegexpTagger(
-     [(r'^[-\:]?[0-9]+(.[0-9]+)?$', 'CD'),
+train = brown.tagged_sents(categories='news')
+regex_tag = nltk.RegexpTagger([
+     (r'^[-\:]?[0-9]+(.[0-9]+)?$', 'CD'),
      (r'.*able$', 'JJ'),
      (r'^[A-Z].*$', 'NNP'),
      (r'.*ly$', 'RB'),
@@ -13,3 +13,24 @@ regexp_tagger = nltk.RegexpTagger(
      (r'.*ed$', 'VBD'),
      (r'.*', 'NN')
 ])
+
+
+unigram_tag = nltk.UnigramTagger(train, backoff=regex_tag)
+bigram_tag = nltk.BigramTagger(train, backoff=unigram_tag)
+
+
+def get_words(sentence):
+    words = nltk.word_tokenize(sentence)
+    return words
+
+
+def get_info(sentence):
+    words = get_words(sentence)
+    tags = bigram_tag.tag(words)
+
+
+def main():
+    sentence = raw_input("sentence: ")
+    get_info(sentence)
+
+main()
