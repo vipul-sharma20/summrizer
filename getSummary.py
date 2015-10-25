@@ -1,34 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from nltk import tokenize
+import nltk
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+import util
 import re
-
-
-def getParagraphs(content):
-    """
-    Exctracts paragraphs from the the text content
-    :param content: (str) text content
-    :returns: list of paragraphs
-    """
-    paraList = content.split('\n\n')
-    return paraList
-
-
-def getSentences(paragraph):
-    """
-    Extracts sentences from a paragraph
-    :param paragraph: (str) paragraph text
-    :returns: list of sentences
-    """
-    indexed = {}
-    i = 0
-    sentenceList = tokenize.sent_tokenize(paragraph)
-    for s in sentenceList:
-        indexed[i] = s
-        i += 1
-    return sentenceList, indexed
 
 
 def format_sentence(sentence):
@@ -64,7 +39,7 @@ def remove_stopwords(sentences):
     sw = set(stopwords.words('english'))
     cleaned = []
     for sentence in sentences:
-        words = word_tokenize(sentence)
+        words = util.getWords(sentence)
         sentence = ' '.join([c for c in words if c not in sw])
         cleaned.append(sentence)
     return cleaned
@@ -113,10 +88,10 @@ def build(sentences, scoreGraph, orig_sentences):
 
 def main():
     content = raw_input('Content: ')
-    paragraphs = getParagraphs(content)
+    paragraphs = util.getParagraphs(content)
     for paragraph in paragraphs:
         if paragraph:
-            orig_sentences, indexed = getSentences(paragraph)
+            orig_sentences, indexed = util.getSentences(paragraph)
             sentences = remove_stopwords(orig_sentences)
             graph = sentenceGraph(sentences)
             score = build(sentences, graph, orig_sentences)
