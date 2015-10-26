@@ -79,5 +79,6 @@ class ContextExtract():
 def main():
         sentence = raw_input("sentence: ")
         np = ContextExtract()
-        np.get_info(sentence)
+        context = np.get_info(sentence)
+        print context
 main()
