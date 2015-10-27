@@ -35,8 +35,8 @@ class ContextExtract():
     Extracts context of the text content, relevant topics from the text
     """
 
-    def get_info(self, sentence):
-        words = util.getWords(sentence)
+    def get_info(self, content):
+        words = util.getWords(content)
         temp_tags = bigram_tag.tag(words)
         tags = self.re_tag(temp_tags)
         normalized = True
@@ -62,7 +62,6 @@ class ContextExtract():
                 final_context.append(tag[0])
         return final_context
 
-
     def re_tag(self, tagged):
         new_tagged = []
         for tag in tagged:
@@ -76,9 +75,21 @@ class ContextExtract():
                 new_tagged.append((tag[0], tag[1]))
         return new_tagged
 
+
 def main():
-        sentence = raw_input("sentence: ")
+        # content = raw_input("Content: ")
+        content = """
+            The BBC has been testing a new service called SoundIndex, which
+            lists the top 1,000 artists based on discussions crawled from Bebo,
+            Last.fm, Google Groups, iTunes, MySpace and YouTube. The top five bands
+            according to SoundIndex right now are Coldplay, Rihanna, The Ting
+            Tings, Duffy and Mariah Carey , but the index is refreshed every six
+            hours. SoundIndex also lets users sort by popular tracks, search by
+            artist, or create customized charts based on music preferences or
+            filters by age range, sex or location. Results can also be limited to just one
+            data source (such as Last.fm).
+        """
         np = ContextExtract()
-        context = np.get_info(sentence)
+        context = np.get_info(content)
         print context
 main()
