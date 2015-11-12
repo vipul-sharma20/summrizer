@@ -87,6 +87,10 @@ def build(sentences, scoreGraph, orig_sentences):
 
 
 def main():
+    """
+    Exectution starts here.
+    Input's the content to be summarized.
+    """
     # content = raw_input('Content: ')
     content = """
     The BBC has been testing a new service called SoundIndex, which lists the
