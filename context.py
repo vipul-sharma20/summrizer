@@ -81,13 +81,13 @@ def main():
         content = """
             The BBC has been testing a new service called SoundIndex, which
             lists the top 1,000 artists based on discussions crawled from Bebo,
-            Last.fm, Google Groups, iTunes, MySpace and YouTube. The top five bands
-            according to SoundIndex right now are Coldplay, Rihanna, The Ting
-            Tings, Duffy and Mariah Carey , but the index is refreshed every six
-            hours. SoundIndex also lets users sort by popular tracks, search by
-            artist, or create customized charts based on music preferences or
-            filters by age range, sex or location. Results can also be limited to just one
-            data source (such as Last.fm).
+            Last.fm, Google Groups, iTunes, MySpace and YouTube. The top five
+            bands according to SoundIndex right now are Coldplay, Rihanna, The
+            Ting Tings, Duffy and Mariah Carey , but the index is refreshed
+            every six hours. SoundIndex also lets users sort by popular tracks,
+            search by artist, or create customized charts based on music
+            preferences or filters by age range, sex or location. Results can
+            also be limited to just one data source (such as Last.fm).
         """
         np = ContextExtract()
         context = np.get_info(content)
