@@ -1,4 +1,9 @@
-# coding=UTF-8
+# -*- coding: utf-8 -*-
+
+"""
+Script to extract important topics from content
+"""
+
 import nltk
 from nltk.corpus import brown
 import util

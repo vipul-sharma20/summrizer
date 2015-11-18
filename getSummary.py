@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 
+"""
+Script to score sentences to get summary
+"""
+
 import nltk
 from nltk.corpus import stopwords
 import util
