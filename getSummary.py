@@ -1,34 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from nltk import tokenize
+import nltk
 from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
+import util
 import re
-
-
-def getParagraphs(content):
-    """
-    Exctracts paragraphs from the the text content
-    :param content: (str) text content
-    :returns: list of paragraphs
-    """
-    paraList = content.split('\n\n')
-    return paraList
-
-
-def getSentences(paragraph):
-    """
-    Extracts sentences from a paragraph
-    :param paragraph: (str) paragraph text
-    :returns: list of sentences
-    """
-    indexed = {}
-    i = 0
-    sentenceList = tokenize.sent_tokenize(paragraph)
-    for s in sentenceList:
-        indexed[i] = s
-        i += 1
-    return sentenceList, indexed
 
 
 def format_sentence(sentence):
@@ -64,7 +39,7 @@ def remove_stopwords(sentences):
     sw = set(stopwords.words('english'))
     cleaned = []
     for sentence in sentences:
-        words = word_tokenize(sentence)
+        words = util.getWords(sentence)
         sentence = ' '.join([c for c in words if c not in sw])
         cleaned.append(sentence)
     return cleaned
@@ -112,14 +87,31 @@ def build(sentences, scoreGraph, orig_sentences):
 
 
 def main():
-    content = raw_input('Content: ')
-    paragraphs = getParagraphs(content)
+    """
+    Exectution starts here.
+    Input's the content to be summarized.
+    """
+    # content = raw_input('Content: ')
+    content = """
+    The BBC has been testing a new service called SoundIndex, which lists the
+    top 1,000 artists based on discussions crawled from Bebo, Last.fm, Google
+    Groups, iTunes, MySpace and YouTube. The top five bands according to
+    SoundIndex right now are Coldplay, Rihanna, The Ting Tings, Duffy and
+    Mariah Carey , but the index is refreshed every six hours. SoundIndex also
+    lets users sort by popular tracks, search by artist, or create customized
+    charts based on music preferences or filters by age range, sex or location.
+    Results can also be limited to just one data source (such as Last.fm).
+    """
+    paragraphs = util.getParagraphs(content)
+    count = 0
     for paragraph in paragraphs:
         if paragraph:
-            orig_sentences, indexed = getSentences(paragraph)
+            orig_sentences, indexed = util.getSentences(paragraph)
             sentences = remove_stopwords(orig_sentences)
             graph = sentenceGraph(sentences)
             score = build(sentences, graph, orig_sentences)
-    for i in indexed:
-        print indexed[i], score[indexed[i]]
+        print 'Paragraph: ', count
+        count += 1
+        for i in indexed:
+            print indexed[i], score[indexed[i]]
 main()
