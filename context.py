@@ -97,4 +97,4 @@ def main():
         np = ContextExtract()
         context = np.get_info(content)
         print context
-main()
+#main()
