@@ -5,7 +5,7 @@ A naive summary script to extract summary of text content
 
 PLEASE read the blog post. It contains complete info
 
-* Blog Post: http://vipulsharma20.blogspot.in/2015/10/summrizer-text-summarizer.html
+* Blog Post: http://www.vipul.xyz/2015/10/summrizer-text-summarizer_27.html 
 
 Testing results against:
 
